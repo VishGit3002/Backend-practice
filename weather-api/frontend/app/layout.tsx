@@ -8,7 +8,7 @@ const outfit = Outfit({
 });
 
 export const metadata: Metadata = {
-  title: "Weather App",
+  title: "Atmos",
   description: "An elegant weather application",
 };
 
