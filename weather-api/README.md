@@ -1,22 +1,22 @@
-# ?? Atmos — Weather App
+# Atmos â€” Weather App
 
 A sleek, full-stack weather application with a stunning animated UI, real-time geolocation, and dynamic weather-reactive backgrounds.
 
 ---
 
-## ? Features
+## Features
 
 - **Auto-detects your location** via the browser Geolocation API
 - **Search any city** in the world with validated input
-- **Dynamic weather backgrounds** — rain, lightning, snow, clouds, and clear-sky animations adapt to current conditions
-- **Stunning aurora background** — layered animated blobs, rotating mesh grid, shimmer sweep, and floating micro-particles
-- **Premium glassmorphic widgets** — Feels Like, Wind, Humidity, Visibility, Pressure, Sunrise/Sunset
-- **Fully responsive** — looks great on mobile, tablet, and desktop
-- **Secure backend** — rate limiting, Helmet.js security headers, input validation & sanitization, strict CORS
+- **Dynamic weather backgrounds** â€” rain, lightning, snow, clouds, and clear-sky animations adapt to current conditions
+- **Stunning aurora background** â€” layered animated blobs, rotating mesh grid, shimmer sweep, and floating micro-particles
+- **Premium glassmorphic widgets** â€” Feels Like, Wind, Humidity, Visibility, Pressure, Sunrise/Sunset
+- **Fully responsive** â€” looks great on mobile, tablet, and desktop
+- **Secure backend** â€” rate limiting, Helmet.js security headers, input validation & sanitization, strict CORS
 
 ---
 
-## ?? Tech Stack
+## Tech Stack
 
 ### Frontend
 | Tech | Purpose |
@@ -134,11 +134,11 @@ GET /api/get-weather?lat=51.5074&lon=-0.1278
 ## ?? UI Highlights
 
 ### Dynamic Weather Backgrounds
-- ? Thunderstorm — full-screen lightning flashes + heavy rain
-- ?? Rain/Drizzle — 60 animated falling raindrops
-- ?? Snow — 80 glowing drifting snowflakes
-- ?? Clouds — slow-drifting volumetric cloud orbs
-- ?? Clear — warm pulsing sun-glow
+- ? Thunderstorm â€” full-screen lightning flashes + heavy rain
+- ?? Rain/Drizzle â€” 60 animated falling raindrops
+- ?? Snow â€” 80 glowing drifting snowflakes
+- ?? Clouds â€” slow-drifting volumetric cloud orbs
+- ?? Clear â€” warm pulsing sun-glow
 
 ### Base Background (always-on)
 - 3 morphing aurora blobs (18s / 24s / 30s cycles)
@@ -158,18 +158,18 @@ GET /api/get-weather?lat=51.5074&lon=-0.1278
 ```
 weather-api/
 +-- backend/
-¦   +-- controllers/
-¦   ¦   +-- weather-controller.js
-¦   +-- routes/
-¦   ¦   +-- routes.js
-¦   +-- index.js
-¦   +-- package.json
-¦
+Â¦   +-- controllers/
+Â¦   Â¦   +-- weather-controller.js
+Â¦   +-- routes/
+Â¦   Â¦   +-- routes.js
+Â¦   +-- index.js
+Â¦   +-- package.json
+Â¦
 +-- frontend/
     +-- app/
-    ¦   +-- page.tsx
-    ¦   +-- layout.tsx
-    ¦   +-- globals.css
+    Â¦   +-- page.tsx
+    Â¦   +-- layout.tsx
+    Â¦   +-- globals.css
     +-- package.json
 ```
 
