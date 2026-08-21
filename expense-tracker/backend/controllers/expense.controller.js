@@ -83,11 +83,8 @@ export async function update(req, res) {
 
 export async function get(req, res) {
   try {
-    const user = req.user;
-
-    console.log(user);
-
-    const expense = await Expense.find({ user: user._id });
+    
+    const expense = await Expense.find({ user: req.user._id });
 
     res.status(200).json({ expense });
   } catch (error) {
