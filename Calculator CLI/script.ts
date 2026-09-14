@@ -37,8 +37,11 @@ function calculate(
   operation: number,
   a: number,
   b: number,
-): number | null | undefined {
+): number | null {
   const operationFn = operations[operation];
+  if (!operationFn) {
+    return null;
+  }
   return operationFn(a, b);
 }
 
