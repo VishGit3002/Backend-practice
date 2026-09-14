@@ -4,6 +4,7 @@ import connectDB from "./config/db.js";
 import cookieParser from "cookie-parser";
 import cors from "cors";
 import helmet from "helmet";
+import morgan from "morgan";
 import rateLimit from "express-rate-limit";
 
 const PORT = process.env.PORT || 3000
@@ -30,7 +31,6 @@ app.use(cookieParser());
 
 import expenseRouter from "./routes/expense.routes.js";
 import authRouter from "./routes/auth.routes.js";
-import morgan from "morgan";
 
 app.use("/api/auth", authRouter);
 app.use("/api/expense", expenseRouter);
