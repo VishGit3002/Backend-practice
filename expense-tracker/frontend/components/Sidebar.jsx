@@ -150,9 +150,18 @@ export default function Sidebar({ isOpen, onClose }) {
                 {/* Profile header */}
                 <div className="px-4 pt-4 pb-3 border-b border-border">
                   <div className="flex items-center gap-3">
-                    <div className="w-11 h-11 rounded-full bg-gradient-to-br from-primary to-secondary flex items-center justify-center shadow-md shadow-primary/20">
-                      <HiUser className="w-5 h-5 text-white" />
-                    </div>
+                    {user?.avatar ? (
+                      <img
+                        src={user.avatar}
+                        alt={user?.name || "User"}
+                        className="w-11 h-11 rounded-full object-cover shadow-md shadow-primary/20 border border-border"
+                        referrerPolicy="no-referrer"
+                      />
+                    ) : (
+                      <div className="w-11 h-11 rounded-full bg-gradient-to-br from-primary to-secondary flex items-center justify-center shadow-md shadow-primary/20">
+                        <HiUser className="w-5 h-5 text-white" />
+                      </div>
+                    )}
                     <div className="min-w-0">
                       <p className="text-sm font-semibold text-foreground truncate">
                         {user?.name || "User"}
@@ -213,9 +222,18 @@ export default function Sidebar({ isOpen, onClose }) {
             onClick={() => setProfileOpen(!profileOpen)}
             className="w-full flex items-center gap-3 px-3 py-3 rounded-xl hover:bg-surface-hover transition-all duration-200 group"
           >
-            <div className="w-9 h-9 rounded-full bg-gradient-to-br from-primary to-secondary flex items-center justify-center shadow-md shadow-primary/20 flex-shrink-0">
-              <HiUser className="w-4 h-4 text-white" />
-            </div>
+            {user?.avatar ? (
+              <img
+                src={user.avatar}
+                alt={user?.name || "User"}
+                className="w-9 h-9 rounded-full object-cover shadow-md shadow-primary/20 flex-shrink-0 border border-border"
+                referrerPolicy="no-referrer"
+              />
+            ) : (
+              <div className="w-9 h-9 rounded-full bg-gradient-to-br from-primary to-secondary flex items-center justify-center shadow-md shadow-primary/20 flex-shrink-0">
+                <HiUser className="w-4 h-4 text-white" />
+              </div>
+            )}
             <div className="flex-1 text-left min-w-0">
               <p className="text-sm font-medium text-foreground truncate">
                 {user?.name || "User"}

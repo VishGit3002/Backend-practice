@@ -1,6 +1,7 @@
 import { Inter } from "next/font/google";
 import "./globals.css";
 import { ToastProvider } from "@/components/Toast";
+import GoogleAuthProvider from "@/components/GoogleAuthProvider";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -18,7 +19,9 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en" className={`${inter.variable} h-full antialiased`}>
       <body className="min-h-full flex flex-col bg-background text-foreground">
-        <ToastProvider>{children}</ToastProvider>
+        <GoogleAuthProvider>
+          <ToastProvider>{children}</ToastProvider>
+        </GoogleAuthProvider>
       </body>
     </html>
   );

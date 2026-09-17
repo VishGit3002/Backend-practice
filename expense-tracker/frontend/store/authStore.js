@@ -55,6 +55,26 @@ const useAuthStore = create((set) => ({
     }
   },
 
+  // Google Login
+  googleLogin: async (credential) => {
+    set({ isLoading: true, error: null });
+    try {
+      const res = await api.post("/api/auth/google", { credential });
+      set({
+        user: res.data.data,
+        isAuthenticated: true,
+        isLoading: false,
+        error: null,
+      });
+      return { success: true, data: res.data.data };
+    } catch (error) {
+      const msg =
+        error.response?.data?.message || "Google sign-in failed. Please try again.";
+      set({ isLoading: false, error: msg });
+      return { success: false, message: msg };
+    }
+  },
+
   // Logout
   logout: async () => {
     try {

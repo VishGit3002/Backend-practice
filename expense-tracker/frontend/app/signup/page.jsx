@@ -12,9 +12,11 @@ import {
   HiBanknotes,
   HiEye,
   HiEyeSlash,
+  HiArrowRight,
 } from "react-icons/hi2";
 import useAuthStore from "@/store/authStore";
 import { useToast } from "@/components/Toast";
+import GoogleAuthButton from "@/components/GoogleAuthButton";
 
 export default function SignupPage() {
   const { signup, isAuthenticated, error, clearError } = useAuthStore();
@@ -61,103 +63,161 @@ export default function SignupPage() {
   };
 
   return (
-    <div className="auth-gradient flex items-center justify-center px-4 py-12">
-      <motion.div
-        initial={{ opacity: 0, y: 30 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6, ease: "easeOut" }}
-        className="w-full max-w-md relative z-10"
-      >
-        {/* Logo */}
-        <div className="flex items-center justify-center gap-3 mb-10">
-          <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-primary to-secondary flex items-center justify-center shadow-lg shadow-primary/25">
+    <div className="min-h-screen w-full grid lg:grid-cols-2 bg-background text-foreground selection:bg-primary/30">
+      {/* Left: Visual Automotive Hero (Visible on lg screens) */}
+      <div className="relative hidden lg:flex flex-col justify-between p-12 overflow-hidden bg-surface">
+        {/* Background Image with Cinematic Overlays */}
+        <div className="absolute inset-0 z-0">
+          <img
+            src="https://images.unsplash.com/photo-1617788138017-80ad40651399?q=80&w=1920&auto=format&fit=crop"
+            alt="High performance luxury hypercar"
+            className="w-full h-full object-cover object-center brightness-[0.4] contrast-[1.1] scale-105 transition-transform duration-1000 ease-out hover:scale-100"
+          />
+          {/* Gradients */}
+          <div className="absolute inset-0 bg-gradient-to-t from-background via-background/30 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-r from-background/70 via-transparent to-background/50" />
+          <div className="absolute inset-0 bg-radial-at-c from-secondary/10 via-transparent to-transparent pointer-events-none" />
+        </div>
+
+        {/* Top: Branding */}
+        <div className="relative z-10 flex items-center gap-3">
+          <div className="w-11 h-11 rounded-xl bg-gradient-to-br from-primary to-secondary flex items-center justify-center shadow-lg shadow-primary/30">
             <HiSparkles className="w-6 h-6 text-white" />
           </div>
           <div>
-            <h1 className="text-2xl font-bold text-foreground tracking-tight">
+            <span className="text-xl font-bold tracking-tight text-white">
               SpendWise
-            </h1>
-            <p className="text-xs text-text-secondary uppercase tracking-widest">
-              Expense Tracker
+            </span>
+            <p className="text-[10px] text-text-secondary uppercase tracking-widest font-mono">
+              Next-Gen Wealth Intelligence
             </p>
           </div>
         </div>
 
-        {/* Card */}
-        <div className="glass-strong rounded-2xl border border-border p-8 shadow-2xl shadow-primary/5">
-          <div className="text-center mb-8">
-            <h2 className="text-xl font-semibold text-foreground">
-              Create your account
-            </h2>
-            <p className="text-sm text-text-secondary mt-1">
-              Start tracking your expenses today
+        {/* Bottom: Quote & Tag */}
+        <div className="relative z-10 max-w-lg space-y-4">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 backdrop-blur-md border border-white/15 text-xs text-white/90">
+            <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse" />
+            Precision Financial Architecture
+          </div>
+          <blockquote className="space-y-2">
+            <p className="text-xl font-medium text-white/95 leading-relaxed tracking-tight">
+              &ldquo;Engineering your personal balance sheet with the precision
+              of high performance motorsport.&rdquo;
+            </p>
+            <footer className="text-xs text-text-secondary font-mono tracking-wide">
+              Smart Budgets &bull; Automated Categorization &bull; Real-time Insights
+            </footer>
+          </blockquote>
+        </div>
+      </div>
+
+      {/* Right: Auth Form Container */}
+      <div className="flex flex-col justify-between p-6 sm:p-12 min-h-screen relative z-10 bg-background/95 backdrop-blur-sm overflow-y-auto">
+        {/* Top Header Row */}
+        <div className="flex items-center justify-between">
+          {/* Mobile Logo */}
+          <div className="flex items-center gap-2.5 lg:hidden">
+            <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-primary to-secondary flex items-center justify-center shadow-md shadow-primary/25">
+              <HiSparkles className="w-5 h-5 text-white" />
+            </div>
+            <span className="text-lg font-bold text-foreground">SpendWise</span>
+          </div>
+
+          {/* Switch to Login */}
+          <div className="ml-auto flex items-center gap-2 text-xs sm:text-sm text-text-secondary">
+            <span className="hidden sm:inline">Already have an account?</span>
+            <Link
+              href="/login"
+              className="font-medium text-foreground hover:text-primary transition-colors px-3 py-1.5 rounded-lg border border-border hover:border-primary/40 bg-surface/50 hover:bg-surface flex items-center gap-1.5"
+            >
+              Sign in
+              <HiArrowRight className="w-3.5 h-3.5" />
+            </Link>
+          </div>
+        </div>
+
+        {/* Center: Form Area */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, ease: "easeOut" }}
+          className="w-full max-w-sm mx-auto my-auto py-6"
+        >
+          {/* Header */}
+          <div className="mb-6 text-center sm:text-left">
+            <h1 className="text-2xl sm:text-3xl font-bold tracking-tight text-foreground">
+              Create an account
+            </h1>
+            <p className="text-sm text-text-secondary mt-1.5">
+              Enter your details below to begin tracking your expenses
             </p>
           </div>
 
-          <form onSubmit={handleSubmit} className="space-y-5">
+          <form onSubmit={handleSubmit} className="space-y-3.5">
             {/* Name */}
             <div>
-              <label className="block text-sm font-medium text-text-secondary mb-2">
+              <label className="block text-xs font-medium text-text-secondary uppercase tracking-wider mb-1.5">
                 Full Name
               </label>
               <div className="relative">
-                <HiUser className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-muted" />
+                <HiUser className="absolute left-3.5 top-1/2 -translate-y-1/2 w-5 h-5 text-muted" />
                 <input
                   type="text"
                   value={form.name}
                   onChange={(e) => setForm({ ...form, name: e.target.value })}
                   placeholder="John Doe"
                   required
-                  className="w-full pl-12 pr-4 py-3 rounded-xl bg-surface border border-border text-foreground placeholder:text-muted text-sm outline-none focus:border-primary/50 input-glow transition-all duration-200"
+                  className="w-full pl-11 pr-4 py-2.5 rounded-xl bg-surface/80 border border-border text-foreground placeholder:text-muted text-sm outline-none focus:border-primary focus:ring-1 focus:ring-primary/30 transition-all duration-200"
                 />
               </div>
             </div>
 
             {/* Email */}
             <div>
-              <label className="block text-sm font-medium text-text-secondary mb-2">
+              <label className="block text-xs font-medium text-text-secondary uppercase tracking-wider mb-1.5">
                 Email Address
               </label>
               <div className="relative">
-                <HiEnvelope className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-muted" />
+                <HiEnvelope className="absolute left-3.5 top-1/2 -translate-y-1/2 w-5 h-5 text-muted" />
                 <input
                   type="email"
                   value={form.email}
                   onChange={(e) => setForm({ ...form, email: e.target.value })}
-                  placeholder="you@example.com"
+                  placeholder="name@example.com"
                   required
-                  className="w-full pl-12 pr-4 py-3 rounded-xl bg-surface border border-border text-foreground placeholder:text-muted text-sm outline-none focus:border-primary/50 input-glow transition-all duration-200"
+                  className="w-full pl-11 pr-4 py-2.5 rounded-xl bg-surface/80 border border-border text-foreground placeholder:text-muted text-sm outline-none focus:border-primary focus:ring-1 focus:ring-primary/30 transition-all duration-200"
                 />
               </div>
             </div>
 
             {/* Password */}
             <div>
-              <label className="block text-sm font-medium text-text-secondary mb-2">
+              <label className="block text-xs font-medium text-text-secondary uppercase tracking-wider mb-1.5">
                 Password
               </label>
               <div className="relative">
-                <HiLockClosed className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-muted" />
+                <HiLockClosed className="absolute left-3.5 top-1/2 -translate-y-1/2 w-5 h-5 text-muted" />
                 <input
                   type={showPassword ? "text" : "password"}
                   value={form.password}
                   onChange={(e) =>
                     setForm({ ...form, password: e.target.value })
                   }
-                  placeholder="Min 6 characters"
+                  placeholder="Min. 6 characters"
                   required
                   minLength={6}
-                  className="w-full pl-12 pr-12 py-3 rounded-xl bg-surface border border-border text-foreground placeholder:text-muted text-sm outline-none focus:border-primary/50 input-glow transition-all duration-200"
+                  className="w-full pl-11 pr-11 py-2.5 rounded-xl bg-surface/80 border border-border text-foreground placeholder:text-muted text-sm outline-none focus:border-primary focus:ring-1 focus:ring-primary/30 transition-all duration-200"
                 />
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-4 top-1/2 -translate-y-1/2 text-muted hover:text-foreground transition-colors"
+                  className="absolute right-3.5 top-1/2 -translate-y-1/2 text-muted hover:text-foreground transition-colors"
                 >
                   {showPassword ? (
-                    <HiEyeSlash className="w-5 h-5" />
+                    <HiEyeSlash className="w-4 h-4" />
                   ) : (
-                    <HiEye className="w-5 h-5" />
+                    <HiEye className="w-4 h-4" />
                   )}
                 </button>
               </div>
@@ -165,12 +225,12 @@ export default function SignupPage() {
 
             {/* Starting Balance */}
             <div>
-              <label className="block text-sm font-medium text-text-secondary mb-2">
+              <label className="block text-xs font-medium text-text-secondary uppercase tracking-wider mb-1.5">
                 Starting Balance (₹){" "}
-                <span className="text-muted font-normal">— optional</span>
+                <span className="text-muted lowercase font-normal">(optional)</span>
               </label>
               <div className="relative">
-                <HiBanknotes className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-muted" />
+                <HiBanknotes className="absolute left-3.5 top-1/2 -translate-y-1/2 w-5 h-5 text-muted" />
                 <input
                   type="number"
                   value={form.balance}
@@ -179,7 +239,7 @@ export default function SignupPage() {
                   }
                   placeholder="0.00"
                   min="0"
-                  className="w-full pl-12 pr-4 py-3 rounded-xl bg-surface border border-border text-foreground placeholder:text-muted text-sm outline-none focus:border-primary/50 input-glow transition-all duration-200"
+                  className="w-full pl-11 pr-4 py-2.5 rounded-xl bg-surface/80 border border-border text-foreground placeholder:text-muted text-sm outline-none focus:border-primary focus:ring-1 focus:ring-primary/30 transition-all duration-200"
                 />
               </div>
             </div>
@@ -189,17 +249,17 @@ export default function SignupPage() {
               <motion.p
                 initial={{ opacity: 0, y: -5 }}
                 animate={{ opacity: 1, y: 0 }}
-                className="text-sm text-danger bg-danger-light rounded-lg px-4 py-2 border border-danger/20"
+                className="text-xs text-danger bg-danger-light rounded-lg px-3.5 py-2 border border-danger/20"
               >
                 {error}
               </motion.p>
             )}
 
-            {/* Submit */}
+            {/* Submit Button */}
             <button
               type="submit"
               disabled={submitting}
-              className="w-full py-3.5 rounded-xl bg-gradient-to-r from-primary to-secondary text-white font-semibold text-sm hover:opacity-90 disabled:opacity-50 transition-all duration-200 shadow-lg shadow-primary/25 active:scale-[0.98]"
+              className="w-full py-3 rounded-xl bg-gradient-to-r from-primary to-secondary text-white font-medium text-sm hover:opacity-95 disabled:opacity-50 transition-all duration-200 shadow-md shadow-primary/20 active:scale-[0.99] mt-2 cursor-pointer"
             >
               {submitting ? (
                 <span className="flex items-center justify-center gap-2">
@@ -207,22 +267,37 @@ export default function SignupPage() {
                   Creating account...
                 </span>
               ) : (
-                "Create Account"
+                "Create Account with Email"
               )}
             </button>
           </form>
 
-          <p className="text-center text-sm text-text-secondary mt-6">
-            Already have an account?{" "}
-            <Link
-              href="/login"
-              className="text-primary hover:text-primary-hover font-medium transition-colors"
-            >
-              Sign in
-            </Link>
-          </p>
+          {/* Symmetrical Shadcn Divider */}
+          <div className="flex items-center gap-3 my-5">
+            <div className="h-px flex-1 bg-border" />
+            <span className="text-[11px] text-text-secondary uppercase tracking-widest font-mono shrink-0">
+              or continue with
+            </span>
+            <div className="h-px flex-1 bg-border" />
+          </div>
+
+          {/* Google Sign-Up */}
+          <GoogleAuthButton text="signup_with" />
+        </motion.div>
+
+        {/* Footer: Disclaimer */}
+        <div className="text-center text-[11px] text-text-secondary/70 pt-4">
+          By signing up, you agree to SpendWise&apos;s{" "}
+          <span className="underline hover:text-foreground cursor-pointer">
+            Terms of Service
+          </span>{" "}
+          and{" "}
+          <span className="underline hover:text-foreground cursor-pointer">
+            Privacy Policy
+          </span>
+          .
         </div>
-      </motion.div>
+      </div>
     </div>
   );
 }

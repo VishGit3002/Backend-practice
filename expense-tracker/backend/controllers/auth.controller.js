@@ -1,7 +1,116 @@
 import User from "../models/auth.model.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
+import { OAuth2Client } from "google-auth-library";
 import { signupSchema, loginSchema } from "../utils/validation.js";
+
+const sendAuthResponse = (res, user, statusCode = 200) => {
+  const isProduction = process.env.NODE_ENV === "production";
+
+  const refreshToken = jwt.sign(
+    { id: user._id },
+    process.env.JWT_SECRET,
+    { expiresIn: "7d" }
+  );
+  const accessToken = jwt.sign(
+    { id: user._id },
+    process.env.JWT_SECRET,
+    { expiresIn: "15m" }
+  );
+
+  const cookieOptions = {
+    httpOnly: true,
+    secure: isProduction,
+    sameSite: isProduction ? "none" : "strict",
+  };
+
+  res.cookie("accessToken", accessToken, {
+    ...cookieOptions,
+    maxAge: 15 * 60 * 1000,
+  });
+  res.cookie("refreshToken", refreshToken, {
+    ...cookieOptions,
+    maxAge: 7 * 24 * 60 * 60 * 1000,
+  });
+
+  const userData = user.toObject ? user.toObject() : { ...user };
+  delete userData.password;
+
+  return res.status(statusCode).json({
+    status: "success",
+    data: userData,
+  });
+};
+
+export async function googleLogin(req, res) {
+  try {
+    const { credential } = req.body;
+    if (!credential) {
+      return res.status(400).json({ message: "Google credential is required" });
+    }
+
+    const clientId = process.env.GOOGLE_CLIENT_ID;
+    if (!clientId) {
+      return res.status(500).json({
+        message:
+          "Google Client ID is not configured on the server. Please set GOOGLE_CLIENT_ID in your environment.",
+      });
+    }
+
+    const client = new OAuth2Client(clientId);
+    const ticket = await client.verifyIdToken({
+      idToken: credential,
+      audience: clientId,
+    });
+
+    const payload = ticket.getPayload();
+    if (!payload || !payload.email) {
+      return res.status(400).json({ message: "Invalid Google account payload" });
+    }
+
+    const { sub: googleId, email, name, picture } = payload;
+
+    let user = await User.findOne({
+      $or: [{ googleId }, { email }],
+    });
+
+    if (user) {
+      // Account linking / updating info
+      let modified = false;
+      if (!user.googleId) {
+        user.googleId = googleId;
+        modified = true;
+      }
+      if (!user.authProvider || user.authProvider === "local") {
+        // keep authProvider or allow multiple login methods
+      }
+      if (!user.avatar && picture) {
+        user.avatar = picture;
+        modified = true;
+      }
+      if (modified) {
+        await user.save();
+      }
+    } else {
+      user = await User.create({
+        name: name || "Google User",
+        email,
+        googleId,
+        avatar: picture || "",
+        authProvider: "google",
+        balance: 0,
+      });
+    }
+
+    return sendAuthResponse(res, user, 200);
+  } catch (error) {
+    console.error("Google Auth Error:", error);
+    return res.status(401).json({
+      message: error.message || "Google authentication failed",
+    });
+  }
+}
+
 
 export async function signup(req, res) {
   const parsed = signupSchema.safeParse(req.body);

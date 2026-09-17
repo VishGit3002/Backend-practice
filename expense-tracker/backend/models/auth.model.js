@@ -14,8 +14,24 @@ const UserModel = new Schema({
     },
     password:{
         type:String,
-        required:true,
+        required: function () {
+            return !this.googleId;
+        },
         select:false
+    },
+    googleId:{
+        type:String,
+        sparse:true,
+        unique:true,
+    },
+    avatar:{
+        type:String,
+        default:"",
+    },
+    authProvider:{
+        type:String,
+        enum:["local", "google"],
+        default:"local",
     },
     isAdmin:{
         type:Boolean,
@@ -27,7 +43,6 @@ const UserModel = new Schema({
         required:false,
         default:0,
     },
-    
 }, { timestamps: true });
 
 const User = mongoose.model("User", UserModel);
