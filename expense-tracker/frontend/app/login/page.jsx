@@ -229,19 +229,6 @@ export default function LoginPage() {
           {/* Google Sign-In */}
           <GoogleAuthButton text="signin_with" />
         </motion.div>
-
-        {/* Footer: Disclaimer */}
-        <div className="text-center text-[11px] text-text-secondary/70 pt-6">
-          By continuing, you agree to SpendWise&apos;s{" "}
-          <span className="underline hover:text-foreground cursor-pointer">
-            Terms of Service
-          </span>{" "}
-          and{" "}
-          <span className="underline hover:text-foreground cursor-pointer">
-            Privacy Policy
-          </span>
-          .
-        </div>
       </div>
     </div>
   );

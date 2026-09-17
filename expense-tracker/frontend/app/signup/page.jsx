@@ -284,19 +284,6 @@ export default function SignupPage() {
           {/* Google Sign-Up */}
           <GoogleAuthButton text="signup_with" />
         </motion.div>
-
-        {/* Footer: Disclaimer */}
-        <div className="text-center text-[11px] text-text-secondary/70 pt-4">
-          By signing up, you agree to SpendWise&apos;s{" "}
-          <span className="underline hover:text-foreground cursor-pointer">
-            Terms of Service
-          </span>{" "}
-          and{" "}
-          <span className="underline hover:text-foreground cursor-pointer">
-            Privacy Policy
-          </span>
-          .
-        </div>
       </div>
     </div>
   );
