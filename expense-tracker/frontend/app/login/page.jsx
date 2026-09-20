@@ -81,18 +81,18 @@ export default function LoginPage() {
 
         {/* Bottom: Quote & Tag */}
         <div className="relative z-10 max-w-lg space-y-4">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 backdrop-blur-md border border-white/15 text-xs text-white/90">
+          {/* <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 backdrop-blur-md border border-white/15 text-xs text-white/90">
             <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
             Financial Velocity & Precision
-          </div>
+          </div> */}
           <blockquote className="space-y-2">
-            <p className="text-xl font-medium text-white/95 leading-relaxed tracking-tight">
+            <p className="text-xl font-medium text-white/55 leading-relaxed tracking-tight">
               &ldquo;Take the driver&apos;s seat of your wealth. Every expense
               tracked accelerates your journey toward financial freedom.&rdquo;
             </p>
-            <footer className="text-xs text-text-secondary font-mono tracking-wide">
+            {/* <footer className="text-xs text-text-secondary font-mono tracking-wide">
               Automated Tracking &bull; Real-time Analytics &bull; Cloud Sync
-            </footer>
+            </footer> */}
           </blockquote>
         </div>
       </div>

@@ -96,18 +96,18 @@ export default function SignupPage() {
 
         {/* Bottom: Quote & Tag */}
         <div className="relative z-10 max-w-lg space-y-4">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 backdrop-blur-md border border-white/15 text-xs text-white/90">
+          {/* <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 backdrop-blur-md border border-white/15 text-xs text-white/90">
             <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse" />
             Precision Financial Architecture
-          </div>
+          </div> */}
           <blockquote className="space-y-2">
-            <p className="text-xl font-medium text-white/95 leading-relaxed tracking-tight">
+            <p className="text-xl font-medium text-white/55 leading-relaxed tracking-tight">
               &ldquo;Engineering your personal balance sheet with the precision
               of high performance motorsport.&rdquo;
             </p>
-            <footer className="text-xs text-text-secondary font-mono tracking-wide">
+            {/* <footer className="text-xs text-text-secondary font-mono tracking-wide">
               Smart Budgets &bull; Automated Categorization &bull; Real-time Insights
-            </footer>
+            </footer> */}
           </blockquote>
         </div>
       </div>

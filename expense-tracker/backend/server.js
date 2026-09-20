@@ -40,7 +40,7 @@ app.get("/api/health", (req, res) => {
     message: "Expense Tracker backend is running",
   });
 });
-
+s
 
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`)
